@@ -1,0 +1,10 @@
+.hero-section{
+    background: url("https://i.pinimg.com/736x/63/64/d5/6364d5f63719aa4979d992174f654bd6.jpg") center center/cover no-repeat;
+    height: 100vh;
+    position: relative;
+}
+
+.hero-section .container{
+    position: relative;
+    z-index: 1;
+}
