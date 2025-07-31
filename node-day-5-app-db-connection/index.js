@@ -3,6 +3,7 @@ const dbConnection = require("./config/dbconnection");
 const User = require("./model/User");
 const jwt = require("jsonwebtoken"); // login api
 const bcrypt = require("bcryptjs"); // register api
+const authMiddleware = require("./middleware/authMiddleware");
 
 const app = express();
 const port = 8081;
@@ -12,7 +13,7 @@ const jwt_key = "EntriFullstackwebdevelopment";
 app.use(express.json());
 
 // POST API
-app.post("/users/add", async (req, res) => {
+app.post("/users/add",  authMiddleware(["admin"]),async (req, res) => {
     try{
         const newUser = await User.create(req.body);
         res.status(201).json({message: "User added successfully"});
@@ -23,7 +24,7 @@ app.post("/users/add", async (req, res) => {
 });
 
 // GET API
-app.get("/users", async (req, res) => {
+app.get("/users", authMiddleware(["admin", "user"]), async (req, res) => {
     try{
         const users = await User.find();
         res.status(200).json(users);
@@ -44,7 +45,7 @@ app.put("/users/edit/:id", async(req, res) => {
 })
 
 // DELETE API
-app.delete("/users/:id", async(req, res) => {
+app.delete("/users/:id", authMiddleware(["admin"]), async(req, res) => {
     try{
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json({message: "User deleted"})
