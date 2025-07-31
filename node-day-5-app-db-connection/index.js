@@ -4,6 +4,7 @@ const User = require("./model/User");
 const jwt = require("jsonwebtoken"); // login api
 const bcrypt = require("bcryptjs"); // register api
 const authMiddleware = require("./middleware/authMiddleware");
+const Product = require("./model/Product");
 
 const app = express();
 const port = 8081;
@@ -22,6 +23,15 @@ app.post("/users/add",  authMiddleware(["admin"]),async (req, res) => {
         console.error(err);        
     }
 });
+
+app.post("/products/add", authMiddleware(["admin"]), async(req, res) => {
+    try{
+        const newProduct = await Product.create(req.body);
+        res.status(201).json({message: "Product added", newProduct});
+    }catch(err){
+        console.error(err);        
+    }
+})
 
 // GET API
 app.get("/users", authMiddleware(["admin", "user"]), async (req, res) => {
