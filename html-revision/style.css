@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightslategray;
+    padding: 10px;
+}
+
+.navbar-container .nav-links{
+    display: flex;
+    gap: 15px;
+    list-style-type: none;
+}
+
+/* Laptop screen */
+.grid-container{
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.box{
+    background-color: #4caf50;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 9px;
+    padding: 5px;
+}
+
+/* Responsiveness */
+
+/* Tablet design */
+@media (max-width: 768px){
+    .grid-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile design */
+@media (max-width: 425px){
+    .grid-container{
+        grid-template-columns: 1fr;
+    }
+}
